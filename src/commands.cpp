@@ -228,6 +228,9 @@ bool Answer::RunCommand(const std::string &loopsuffix) {
     if(state == TPState::TERMINATED) {
       errorstring = "Answer: application terminated";
       return false;
+    } else if (difftime(time(NULL), secsnow) > ANSWER_TIMEOUT) {
+      errorstring = "Answer: timed out";
+      return false;
     }
   } while(state == TPState::CONNECTING);
 
